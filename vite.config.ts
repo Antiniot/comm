@@ -42,7 +42,8 @@ export default defineConfig({
       '/api': {
         target: process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api' : '/.netlify/functions',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false
       }
     }
   }

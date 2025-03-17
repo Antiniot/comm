@@ -8,7 +8,7 @@ import { promisify } from 'util';
 import { storage } from './storage';
 import { User as SelectUser } from '@shared/schema';
 import createMemoryStore from 'memorystore';
-import serverless from 'serverless-http';
+import * as serverless from 'serverless-http';
 
 
 

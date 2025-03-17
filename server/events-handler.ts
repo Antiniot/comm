@@ -30,6 +30,9 @@ app.use(passport.session());
 
 // Get all events with optional filtering
 app.get('/events', async (req, res) => {
+});
+
+app.get('/.netlify/functions/events-handler/events', async (req, res) => {
   try {
     const filters = eventFilterSchema.safeParse(req.query);
     
@@ -50,6 +53,9 @@ app.get('/events', async (req, res) => {
 
 // Get a single event by ID
 app.get('/events/:id', async (req, res) => {
+});
+
+app.get('/.netlify/functions/events-handler/events/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
@@ -70,6 +76,9 @@ app.get('/events/:id', async (req, res) => {
 
 // Create a new event
 app.post('/events', async (req, res) => {
+});
+
+app.post('/.netlify/functions/events-handler/events', async (req, res) => {
   try {
     const eventData = insertEventSchema.safeParse(req.body);
     
@@ -97,6 +106,9 @@ app.post('/events', async (req, res) => {
 
 // Get event categories
 app.get('/event-categories', async (req, res) => {
+});
+
+app.get('/.netlify/functions/events-handler/event-categories', async (req, res) => {
   try {
     const categories = await storage.getEventCategories();
     res.json(categories);

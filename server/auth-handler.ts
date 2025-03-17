@@ -79,7 +79,7 @@ passport.deserializeUser(async (id: number, done) => {
   }
 });
 
-app.post('/.netlify/functions/auth-handler/register', async (req, res, next) => {
+app.post('/register', async (req, res, next) => {
   try {
     const existingUser = await storage.getUserByUsername(req.body.username);
     if (existingUser) {
@@ -106,13 +106,24 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
   res.json(userWithoutPassword);
 });
 
+app.post('/.netlify/functions/auth-handler/login', passport.authenticate('local'), (req, res) => {
+  const { password, ...userWithoutPassword } = req.user as SelectUser;
+  res.json(userWithoutPassword);
+});
+
 app.post('/logout', (req, res) => {
+});
+
+app.post('/.netlify/functions/auth-handler/logout', (req, res) => {
   req.logout(() => {
     res.status(200).json({ message: 'Logged out successfully' });
   });
 });
 
 app.get('/me', (req, res) => {
+});
+
+app.get('/.netlify/functions/auth-handler/me', (req, res) => {
   if (!req.user) {
     return res.status(401).json({ message: 'Not authenticated' });
   }

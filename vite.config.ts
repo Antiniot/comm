@@ -26,6 +26,9 @@ export default defineConfig({
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "client/index.html")
+      },
       output: {
         format: "esm",
         entryFileNames: 'assets/[name]-[hash].js',
@@ -34,4 +37,13 @@ export default defineConfig({
       }
     }
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8788/.netlify/functions',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  }
 });

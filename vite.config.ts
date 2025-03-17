@@ -40,7 +40,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8788/.netlify/functions',
+        target: process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api' : '/.netlify/functions',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }

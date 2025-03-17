@@ -106,4 +106,4 @@ app.get('/event-categories', async (req, res) => {
   }
 });
 
-export const handler: Handler = serverless(app);
+export const handler = serverless(app);

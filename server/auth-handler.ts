@@ -10,6 +10,8 @@ import { User as SelectUser } from '@shared/schema';
 import createMemoryStore from 'memorystore';
 import serverless from 'serverless-http';
 
+
+
 const MemoryStore = createMemoryStore(session);
 const scryptAsync = promisify(scrypt);
 
@@ -77,7 +79,7 @@ passport.deserializeUser(async (id: number, done) => {
   }
 });
 
-app.post('/register', async (req, res, next) => {
+app.post('/.netlify/functions/auth-handler/register', async (req, res, next) => {
   try {
     const existingUser = await storage.getUserByUsername(req.body.username);
     if (existingUser) {
@@ -118,4 +120,4 @@ app.get('/me', (req, res) => {
   res.json(userWithoutPassword);
 });
 
-export const handler: Handler = serverless(app);
+export const handler = serverless(app);
